@@ -1,6 +1,7 @@
 # homeassistant-unraid
 
 ![GitHub](https://img.shields.io/github/license/jiminald/homeassistant-unraid)
+[![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/custom-components/hacs)
 
 This is a custom component for [Home Assistant](http://home-assistant.io) that adds [UnRAID](http://unraid.net) data as a sensor to HA.
 
