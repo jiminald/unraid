@@ -3,7 +3,7 @@
 DOMAIN = "unraid"
 HOSTS = "host"
 
-ENDPOINTS = {
+GRAPHQL_ENDPOINTS = {
     # Array
     "array": "array { "+
             "previousState "+
@@ -569,7 +569,7 @@ ENDPOINTS = {
     "} ",
 }
 
-SENSOR_LIST = list(ENDPOINTS)
+SENSOR_LIST = list(GRAPHQL_ENDPOINTS)
 SENSOR_STATE = {
     "array": {"field": "state", "action": "none"},
     "parityHistory": { "field": "errors", "action": "latest" },

@@ -16,7 +16,7 @@ from .const import (
     DOMAIN,
     HOSTS,
 
-    ENDPOINTS,
+    GRAPHQL_ENDPOINTS,
     SENSOR_LIST,
 )
 
@@ -73,10 +73,10 @@ class UnraidClient:
         # Get all sensor data
         graphql_query = ''
         if not graphql == 'All':
-            graphql_query += ENDPOINTS[graphql]
+            graphql_query += GRAPHQL_ENDPOINTS[graphql]
         else:
             for sensor_name in SENSOR_LIST:
-                graphql_query += ENDPOINTS[sensor_name] + ','
+                graphql_query += GRAPHQL_ENDPOINTS[sensor_name] + ','
 
         # Make request
         try:
