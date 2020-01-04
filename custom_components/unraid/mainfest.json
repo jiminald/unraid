@@ -2,7 +2,10 @@
   "domain": "unraid",
   "name": "unraid",
   "documentation": "https://github.com/jiminald/homeassistant-unraid",
+  "config_flow": false,
   "dependencies": [],
-  "codeowners": [],
+  "codeowners": [
+      "@jiminald"
+  ],
   "requirements": []
 }
