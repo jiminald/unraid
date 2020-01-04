@@ -103,10 +103,20 @@ class UnraidClient:
 
             # Process JSON
             if not graphql == 'All':
-                self._json_object[graphql] = flatten_json(json_result['data'][graphql])
+                # self._json_object[graphql] = flatten_json(json_result['data'][graphql])
+
+                self._json_object[graphql] = {
+                    # 'count': len(json_result['data'][graphql].keys()),
+                    'json': json_result['data'][graphql],
+                    'data': flatten_json(json_result['data'][graphql])
+                }
             else:
                 for sensor_name in SENSOR_LIST:
-                    self._json_object[sensor_name] = flatten_json(json_result['data'][sensor_name])
+                    self._json_object[sensor_name] = {
+                        # 'count': len(json_result['data'][sensor_name].keys()),
+                        'json': json_result['data'][sensor_name],
+                        'data': flatten_json(json_result['data'][sensor_name])
+                    }
 
             return self._json_object
 

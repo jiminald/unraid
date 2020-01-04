@@ -9,6 +9,7 @@ from .const import (
     DOMAIN,
     HOSTS,
     SENSOR_LIST,
+    SENSOR_STATE,
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -66,18 +67,40 @@ class UnraidDiskSensor(Entity):
     @property
     def device_state_attributes(self):
         """Return the state attributes of the data."""
-        return self._result
+        return self._result['data']
 
     def do_update(self):
-        """Fetch new state data for the sensor.
+        """Fetch new state data for the sensor."""
 
-        This is the only method that should fetch new data for Home Assistant.
-        """
-
-        # _LOGGER.debug('DEBUG DEBUG DEBUG %s', self.api.poll_graphql(self._condition))
-
-        self._state = "notifying"
+        # Get data
         self._result = self.api._json_object[self._condition]
+
+        # Get State Parameters
+        state = SENSOR_STATE[self._condition]
+
+        # Are we looking for a specific field
+        if (state['field'] != ''):
+            field = state['field']
+
+            # How do we parse the data
+            if (state['action'] == 'latest'):
+                self._state = len(self._result['json']) - 1
+            elif (state['action'] == 'count'):
+                if (self._result['json'][field] is not None):
+                    self._state = len(self._result['json'][field])
+                else:
+                    self._state = "0"
+            else:
+                self._state = self._result['data'][field]
+        else:
+            # How do we parse the data
+            if (state['action'] == 'count'):
+                if (self._result['json'] != 'null'):
+                    self._state = len(self._result['json'])
+                else:
+                    self._state = "0"
+            else:
+                self._state = "N/A"
 
     def update(self):
         """Get the latest data from the API."""
@@ -87,3 +110,12 @@ class UnraidDiskSensor(Entity):
         """Get the latest data from the API."""
         self.api.poll_graphql(self._condition)
         self.do_update()
+
+
+
+
+    def count_key(self, dict_list):
+        keys_list = []
+        for item in dict_list:
+            keys_list += item.keys()
+        return keys_list.count()

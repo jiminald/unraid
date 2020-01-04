@@ -570,3 +570,17 @@ ENDPOINTS = {
 }
 
 SENSOR_LIST = list(ENDPOINTS)
+SENSOR_STATE = {
+    "array": {"field": "state", "action": "none"},
+    "parityHistory": { "field": "errors", "action": "latest" },
+    "devices": { "field": "", "action": "none" },
+    "disks": { "field": "", "action": "count" },
+    "dockerContainers": { "field": "", "action": "count" },
+    "dockerNetworks": { "field": "", "action": "count" },
+    "info": { "field": "versions_unraid", "action": "none" },
+    "plugins": { "field": "", "action": "count" },
+    "services": { "field": "", "action": "count" },
+    "shares": { "field": "", "action": "count" },
+    "vars": { "field": "uptime", "action": "none"},
+    "vms": { "field": "domains", "action": "count" }
+}
