@@ -3,6 +3,10 @@
 DOMAIN = "unraid"
 HOSTS = "host"
 
+# Config Flow
+CONF_HOST = "host"
+CONF_API_KEY = "api_key"
+
 GRAPHQL_ENDPOINTS = {
     # Array
     "array": "array { "+
@@ -569,8 +573,7 @@ GRAPHQL_ENDPOINTS = {
     "} ",
 }
 
-SENSOR_LIST = list(GRAPHQL_ENDPOINTS)
-SENSOR_STATE = {
+SENSOR_GRAPHQL_STATES = {
     "array": {"field": "state", "action": "none"},
     "parityHistory": { "field": "errors", "action": "latest" },
     "devices": { "field": "", "action": "none" },
@@ -584,3 +587,25 @@ SENSOR_STATE = {
     "vars": { "field": "uptime", "action": "none"},
     "vms": { "field": "domains", "action": "count" }
 }
+
+SENSOR_GRAPHQL_BASIC = {
+    "array_percentage_used": {
+        "graphql_endpoint": "array",
+        "name": "array_percentage_used",
+        "value": "{{ ((_result['data']['capacity_bytes_used'] / _result['data']['capacity_bytes_total']) * 100)|round(1, 'floor')|int }}",
+        "attributes": {
+            "unit_of_measurement": "%",
+            "friendly_name": "unRAID Percentage of Array Used",
+        }
+    },
+    "uptime": {
+        "graphql_endpoint": "vars",
+        "name": "uptime",
+        "friendly_name": "unRAID System Uptime",
+        "value": "{{ ((as_timestamp(utcnow()) - as_timestamp(_result['data']['uptime']))-86400)|timestamp_custom('%j days %H:%M:%S') }}",
+    },
+}
+
+
+SENSOR_LIST = list(GRAPHQL_ENDPOINTS)
+SENSOR_BASIC_LIST = list(SENSOR_GRAPHQL_BASIC)
