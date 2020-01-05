@@ -1,0 +1,21 @@
+{
+    "config": {
+        "title": "unRAID",
+        "step": {
+            "user": {
+                "title": "unRAID",
+                "description": "If you need help with the configuration have a look here: https://github.com/jiminald/unraid",
+                "data": {
+                    "host": "Host",
+                    "api_key": "API Key"
+                }
+            }
+        },
+        "error": {
+            "auth": "Failed to connect to unRAID GraphQL"
+        },
+        "abort": {
+            "single_instance_allowed": "Only a single configuration of unRAID is allowed."
+        }
+    }
+}
